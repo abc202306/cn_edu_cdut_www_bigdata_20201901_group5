@@ -84,16 +84,17 @@ class DataProcess:
 
     @staticmethod
     def to_json(dataframe):
-        json01_ = {
-            'labels': dataframe.iloc[:, 0].to_list(),
+        labels = dataframe.iloc[:, 0].to_list()
+        json_ = {
+            'labels': labels,
             'years': dataframe.columns[1:].to_list(),
             'data': {
-                dataframe.iloc[i, 0]: dataframe.iloc[i, 1:].to_list()
+                labels[i]: dataframe.iloc[i, 1:].to_list()
                 for i in range(len(dataframe))
             }
         }
-        json01_ = json.dumps(json01_)
-        return json01_
+        json_ = json.dumps(json_)
+        return json_
 
     @staticmethod
     def json01():
@@ -120,16 +121,34 @@ class DataProcess:
         return json03_
 
     @staticmethod
+    def json04():
+        dataframe = NationalData.get_recent_20_years_data_of_population_rate_1()
+        json04_ = DataProcess.to_json(dataframe)
+        if settings.DEBUG:
+            print(json04_)
+        return json04_
+
+    @staticmethod
+    def json05():
+        dataframe = NationalData.get_recent_20_years_data_of_population_rate_2()
+        json05_ = DataProcess.to_json(dataframe)
+        if settings.DEBUG:
+            print(json05_)
+        return json05_
+
+    @staticmethod
     def json(request):
         json_ = ''
         if request.GET:
             if 'q' in request.GET:
                 k = request.GET['q']
-                if k in ['1', '2', '3']:
+                if k in ['1', '2', '3', '4', '5']:
                     config = {
                         '1': DataProcess.json01,
                         '2': DataProcess.json02,
-                        '3': DataProcess.json03
+                        '3': DataProcess.json03,
+                        '4': DataProcess.json04,
+                        '5': DataProcess.json05,
                     }
                     json_ = config[k]()
 

@@ -50,10 +50,16 @@
     <b class="big_bond_font">
         中国近20年人口数据：
     </b>
-        （以内存、mysql数据库数据表population、网站<a href="http:\\data.stats.gov.cn\easyquery.htm?cn=C01">http:\\data.stats.gov.cn\easyquery.htm?cn=C01</a>为顺序，依次尝试访问数据，直至成功获取数据）
+        （注：“显示中国人口数据”是指以内存、mysql数据库数据表population、网站
+    <a href="http:\\data.stats.gov.cn\easyquery.htm?cn=C01">http:\\data.stats.gov.cn\easyquery.htm?cn=C01</a>
+    为顺序，依次尝试访问数据，直至成功获取数据，否则返回0行0列表）
     <br>
-    <button type="button" class="open_bt_1" onclick="dataprocess.show_population()">显示中国人口数据</button>
-    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_population()">清除显示中国人口数据</button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population()">
+        显示中国人口数据
+    </button>
+    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_population()">
+        清除显示中国人口数据
+    </button>
     <button type="button" class="open_bt_1" onclick="dataprocess.clear_population_data_in_memory()">
         清除服务端内存中的中国人口数据
     </button>
@@ -109,13 +115,25 @@
 
 <div>
     <b class="big_bond_font">
-        中国近20年人口数据的折线图——比率：
+        中国近20年人口数据的折线图——比率——数量级1：
     </b>
-    <input type="button" class="open_bt_1" name='open6' value="显示中国人口数据折线图——比率"
-           onclick="dataprocess.show_e_chart03()">
-    <input type="button" class="close_bt_1" name='close6' value="关闭显示中国人口数据折线图——比率"
-           onclick="dataprocess.clear_show_e_chart03()">
-    <div id="echart_container03"></div>
+    <input type="button" class="open_bt_1" name='open7' value="显示中国人口数据折线图——比率--1"
+           onclick="dataprocess.show_e_chart04()">
+    <input type="button" class="close_bt_1" name='close7' value="关闭显示中国人口数据折线图——比率--1"
+           onclick="dataprocess.clear_show_e_chart04()">
+    <div id="echart_container04"></div>
+    <br>
+</div>
+
+<div>
+    <b class="big_bond_font">
+        中国近20年人口数据的折线图——比率——数量级2：
+    </b>
+    <input type="button" class="open_bt_1" name='open8' value="显示中国人口数据折线图——比率--2"
+           onclick="dataprocess.show_e_chart05()">
+    <input type="button" class="close_bt_1" name='close8' value="关闭显示中国人口数据折线图——比率--2"
+           onclick="dataprocess.clear_show_e_chart05()">
+    <div id="echart_container05"></div>
     <br>
 </div>
 

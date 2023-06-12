@@ -32,8 +32,6 @@ class NationalData:
     easy_query_annual_data_url = f'{main_page_url}\\easyquery.htm?cn=C01'
     time_sep = 0.3
     data = None
-    rate_data = None
-    amount_data = None
     sql_url = sqlalchemy.engine.URL.create(
         'mysql+pymysql',
         username=settings.DATABASES['default']['USER'],
@@ -105,19 +103,25 @@ class NationalData:
         data02 = NationalData.dataframe(browser)
         time.sleep(time_sep)
 
-        data03 = pandas.concat([data00, data01, data02]).reset_index(drop=True)
+        data10 = pandas.concat([data00, data02[:4]])
+        data11 = data01
+        data12 = data02[4:]
 
-        new_columns = [data03.columns[0], *data03.columns[-1:0:-1]]
-        data = data03[new_columns]
+        new_columns = [data10.columns[0], *data10.columns[-1:0:-1]]
+        data10 = data10[new_columns]
+        data11 = data11[new_columns]
+        data12 = data12[new_columns]
 
-        return data
+        data20 = pandas.concat([data10, data11, data12]).reset_index(drop=True)
+
+        return data20, data10, data11, data12
 
     @staticmethod
     def dataframe_from_browser():
         with NationalData.browser() as browser:
             browser.get(NationalData.easy_query_annual_data_url)
             time.sleep(NationalData.time_sep)
-            data = NationalData.the_dataframe(browser)
+            data = NationalData.the_dataframe(browser)[0]
         return data
 
     @staticmethod
@@ -139,24 +143,28 @@ class NationalData:
             return data
 
     @staticmethod
-    def get_recent_20_years_data_of_population_rate():
-        data = NationalData.get_recent_20_years_data_of_population()
-        if NationalData.rate_data is None:
-            NationalData.rate_data = pandas.concat(
-                [data.iloc[i, :] for i in range(len(data)) if i in [5, 6, 7, 12, 13, 14]],
-                axis=1
-            ).T.reset_index(drop=True)
-        return NationalData.rate_data
-
-    @staticmethod
     def get_recent_20_years_data_of_population_amount():
         data = NationalData.get_recent_20_years_data_of_population()
-        if NationalData.amount_data is None:
-            NationalData.amount_data = pandas.concat(
-                [data.iloc[i, :] for i in range(len(data)) if i not in [5, 6, 7, 12, 13, 14]],
-                axis=1
-            ).T.reset_index(drop=True)
-        return NationalData.amount_data
+        data = data[:-6].reset_index(drop=True)
+        return data
+
+    @staticmethod
+    def get_recent_20_years_data_of_population_rate():
+        data = NationalData.get_recent_20_years_data_of_population()
+        data = data[-6:].reset_index(drop=True)
+        return data
+
+    @staticmethod
+    def get_recent_20_years_data_of_population_rate_1():
+        data = NationalData.get_recent_20_years_data_of_population_rate()
+        data = data[:3].reset_index(drop=True)
+        return data
+
+    @staticmethod
+    def get_recent_20_years_data_of_population_rate_2():
+        data = NationalData.get_recent_20_years_data_of_population_rate()
+        data = data[3:].reset_index(drop=True)
+        return data
 
     @staticmethod
     def test_print_recent_20_years_data_of_population():
@@ -189,5 +197,3 @@ class NationalData:
         with NationalData.engine.connect() as con:
             if NationalData.engine.dialect.has_table(con, name):
                 con.execute(f'DROP TABLE {name}').close()
-
-
