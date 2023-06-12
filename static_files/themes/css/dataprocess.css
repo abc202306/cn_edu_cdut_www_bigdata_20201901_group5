@@ -1,10 +1,10 @@
+
+
 body {
     background-image: url('../img/dataprocess_background_1.jpg');
     width:100%;
     height:40%;
     background-size:cover;
-    background-color: deepskyblue;
-    color : deepskyblue;
 }
 
 a {
@@ -56,6 +56,12 @@ table.altrowstable td {
 
 b.big_bond_font {
     font-size: 20px;
+    font-weight: bold;
+    color: skyblue;
+}
+
+b.common_text {
+    font-size: 12px;
     font-weight: bold;
     color: skyblue;
 }

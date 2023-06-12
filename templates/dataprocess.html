@@ -1,21 +1,61 @@
 {% load static %}
 <!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>数据处理</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'themes/css/dataprocess.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'themes/css/base2.css'%}">
+    <link type="text/css" rel="stylesheet" href="{% static 'themes/css/home.css'%}">
     <script src="{% static 'themes/js/echarts.js' %}"></script>
     <script src="{% static 'themes/js/jquery.js' %}"></script>
     <script src="{% static 'themes/js/dataprocess.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'themes/css/dataprocess.css' %}">
 </head>
 
 <body>
+<div class="header">
+    <h1>
+        <a href="index.html">
+            <div class="logo">
+                <img class="full_height" src="{% static 'themes/img/logo.png' %}" alt="XXX"/>
+            </div>
+        </a>
+    </h1>
+    <div class="page-tab">
+        <div class="hoverUnderLine"></div>
+        <ul class="first-menu">
+            <li>
+                <a href="\index.html">首页</a>
+            </li>
+            <li  class="active">
+                <a href="\dataprocess">我的数据处理</a>
+            </li>
+            <li>
+                <a href="\risk.html">智能风控服务</a>
+            </li>
+            <li>
+                <a href="\receive.html">智能获客服务</a>
+            </li>
+            <li>
+                <a href="\data.html">征信数据服务</a>
+            </li>
+            <li>
+                <a href="\about.html">关于我们</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 
 <div>
-    <b class="big_bond_font">
-        所有数据库：
-    </b>
+    <b class="big_bond_font">所有数据库：</b>
     <button type="button" class="open_bt_1" onclick="dataprocess.show_all_database()">显示所有数据库</button>
     <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_all_database()">清除显示所有数据库</button>
     <div id="div_table_1"></div>
@@ -23,9 +63,7 @@
 </div>
 
 <div>
-    <b class="big_bond_font">
-        当前数据库：
-    </b>
+    <b class="big_bond_font">当前数据库：</b>
     <button type="button" class="open_bt_1" onclick="dataprocess.show_current_database()">显示当前数据库</button>
     <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_current_database()">清除显示当前数据库
     </button>
@@ -34,77 +72,48 @@
 </div>
 
 <div>
-    <b class="big_bond_font">
-        当前数据库的所有数据表：
-    </b>
-    <button type="button" class="open_bt_1" onclick="dataprocess.show_all_datatable()">显示当前数据库的所有数据表
-    </button>
-    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_all_datatable()">
-        清除显示当前数据库的所有数据表
-    </button>
+    <b class="big_bond_font">当前数据库的所有数据表：</b>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_all_datatable()">显示当前数据库的所有数据表</button>
+    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_all_datatable()">清除显示当前数据库的所有数据表</button>
     <div id="div_table_3"></div>
     <br>
 </div>
 
 <div>
-    <b class="big_bond_font">
-        中国近20年人口数据：
-    </b>
-        （注：“显示中国人口数据”是指以内存、mysql数据库数据表population、网站
-    <a href="http:\\data.stats.gov.cn\easyquery.htm?cn=C01">http:\\data.stats.gov.cn\easyquery.htm?cn=C01</a>
-    为顺序，依次尝试访问数据，直至成功获取数据，否则返回0行0列表）
+    <b class="big_bond_font">中国近20年人口数据：</b>
+    <b class="common_text">（注：“显示中国人口数据”是指以内存、mysql数据库数据表population、网站</b>
+    <a href="http:\\data.stats.gov.cn\easyquery.htm?cn=C01" class="link01">http:\\data.stats.gov.cn\easyquery.htm?cn=C01</a>
+    <b class="common_text">为顺序，依次尝试访问数据，直至成功获取数据，否则返回0行0列表）</b>
     <br>
-    <button type="button" class="open_bt_1" onclick="dataprocess.show_population()">
-        显示中国人口数据
-    </button>
-    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_population()">
-        清除显示中国人口数据
-    </button>
-    <button type="button" class="open_bt_1" onclick="dataprocess.clear_population_data_in_memory()">
-        清除服务端内存中的中国人口数据
-    </button>
-    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_memory()">
-        从内存中尝试获取显示中国人口数据
-    </button>
-    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_database()">
-        从数据库中尝试获取显示中国人口数据
-    </button>
-    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_browser()">
-        从网站中尝试获取显示中国人口数据
-    </button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population()">显示中国人口数据</button>
+    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_population()">清除显示中国人口数据</button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.clear_population_data_in_memory()">清除服务端内存中的中国人口数据</button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_memory()">从内存中尝试获取显示中国人口数据</button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_database()">从数据库中尝试获取显示中国人口数据</button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_browser()">从网站中尝试获取显示中国人口数据</button>
     <div id="div_table_4"></div>
     <br>
 </div>
 
 <div>
-    <b class="big_bond_font">
-        在当前数据库查询表的所有数据：
-    </b>
-
-        数据库表名：<label for="tq"></label><input id="tq" type="text" name="table_name">
-        <input type="button" class="open_bt_1" name="submit1" onclick="dataprocess.show_query_table()" value="查询">
-        <input type="button" class="close_bt_1" name="clear1" onclick="dataprocess.clear_show_query_table()"
-               value="清除查询结果">
-
+    <b class="big_bond_font">在当前数据库查询表的所有数据：</b>
+    <b class="common_text">数据库表名：</b><label for="tq"></label><input id="tq" type="text" name="table_name">
+    <input type="button" class="open_bt_1" name="submit1" onclick="dataprocess.show_query_table()" value="查询">
+    <input type="button" class="close_bt_1" name="clear1" onclick="dataprocess.clear_show_query_table()" value="清除查询结果">
     <div id="div_table_query"></div>
     <br>
 </div>
 
 <div>
-    <b class="big_bond_font">
-        删除数据表：
-    </b>
-        数据库表名：<label for="text_delete"></label><input id="text_delete" type="text" name="table_name">
-        <input type="button" class="delete_bt_1" name="submit2" onclick="dataprocess.delete_table()" value="删除">
-
+    <b class="big_bond_font">删除数据表：</b>
+    <b class="common_text">数据库表名：</b><label for="text_delete"></label><input id="text_delete" type="text" name="table_name">
+    <input type="button" class="delete_bt_1" name="submit2" onclick="dataprocess.delete_table()" value="删除">
     <div id="div_table_delete"></div>
     <br>
 </div>
 
 <div>
-    <b class="big_bond_font">
-        中国近20年人口数据的折线图——数额：
-    </b>
+    <b class="big_bond_font">中国近20年人口数据的折线图——数额：</b>
     <input type="button" class="open_bt_1" name='open5' value="显示中国人口数据折线图——数额"
            onclick="dataprocess.show_e_chart02()">
     <input type="button" class="close_bt_1" name='close5' value="关闭显示中国人口数据折线图——数额"
@@ -114,25 +123,17 @@
 </div>
 
 <div>
-    <b class="big_bond_font">
-        中国近20年人口数据的折线图——比率——数量级1：
-    </b>
-    <input type="button" class="open_bt_1" name='open7' value="显示中国人口数据折线图——比率--1"
-           onclick="dataprocess.show_e_chart04()">
-    <input type="button" class="close_bt_1" name='close7' value="关闭显示中国人口数据折线图——比率--1"
-           onclick="dataprocess.clear_show_e_chart04()">
+    <b class="big_bond_font">中国近20年人口数据的折线图——比率——数量级1：</b>
+    <input type="button" class="open_bt_1" name='open7' value="显示中国人口数据折线图——比率--1" onclick="dataprocess.show_e_chart04()">
+    <input type="button" class="close_bt_1" name='close7' value="关闭显示中国人口数据折线图——比率--1" onclick="dataprocess.clear_show_e_chart04()">
     <div id="echart_container04"></div>
     <br>
 </div>
 
 <div>
-    <b class="big_bond_font">
-        中国近20年人口数据的折线图——比率——数量级2：
-    </b>
-    <input type="button" class="open_bt_1" name='open8' value="显示中国人口数据折线图——比率--2"
-           onclick="dataprocess.show_e_chart05()">
-    <input type="button" class="close_bt_1" name='close8' value="关闭显示中国人口数据折线图——比率--2"
-           onclick="dataprocess.clear_show_e_chart05()">
+    <b class="big_bond_font">中国近20年人口数据的折线图——比率——数量级2：</b>
+    <input type="button" class="open_bt_1" name='open8' value="显示中国人口数据折线图——比率--2" onclick="dataprocess.show_e_chart05()">
+    <input type="button" class="close_bt_1" name='close8' value="关闭显示中国人口数据折线图——比率--2" onclick="dataprocess.clear_show_e_chart05()">
     <div id="echart_container05"></div>
     <br>
 </div>
