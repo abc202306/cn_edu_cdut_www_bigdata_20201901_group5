@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据处理</title>
+    <script src="{% static 'themes/js/echarts.js' %}"></script>
+    <script src="{% static 'themes/js/jquery.js' %}"></script>
+    <script src="{% static 'themes/js/dataprocess.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'themes/css/dataprocess.css' %}">
+</head>
+
+<body>
+
+<div>
+    <b class="big_bond_font">
+        所有数据库：
+    </b>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_all_database()">显示所有数据库</button>
+    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_all_database()">清除显示所有数据库</button>
+    <div id="div_table_1"></div>
+    <br>
+</div>
+
+<div>
+    <b class="big_bond_font">
+        当前数据库：
+    </b>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_current_database()">显示当前数据库</button>
+    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_current_database()">清除显示当前数据库
+    </button>
+    <div id="div_table_2"></div>
+    <br>
+</div>
+
+<div>
+    <b class="big_bond_font">
+        当前数据库的所有数据表：
+    </b>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_all_datatable()">显示当前数据库的所有数据表
+    </button>
+    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_all_datatable()">
+        清除显示当前数据库的所有数据表
+    </button>
+    <div id="div_table_3"></div>
+    <br>
+</div>
+
+<div>
+    <b class="big_bond_font">
+        中国近20年人口数据：
+    </b>
+        （以内存、mysql数据库数据表population、网站<a href="http:\\data.stats.gov.cn\easyquery.htm?cn=C01">http:\\data.stats.gov.cn\easyquery.htm?cn=C01</a>为顺序，依次尝试访问数据，直至成功获取数据）
+    <br>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population()">显示中国人口数据</button>
+    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_population()">清除显示中国人口数据</button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.clear_population_data_in_memory()">
+        清除服务端内存中的中国人口数据
+    </button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_memory()">
+        从内存中尝试获取显示中国人口数据
+    </button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_database()">
+        从数据库中尝试获取显示中国人口数据
+    </button>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_browser()">
+        从网站中尝试获取显示中国人口数据
+    </button>
+    <div id="div_table_4"></div>
+    <br>
+</div>
+
+<div>
+    <b class="big_bond_font">
+        在当前数据库查询表的所有数据：
+    </b>
+
+        数据库表名：<label for="tq"></label><input id="tq" type="text" name="table_name">
+        <input type="button" class="open_bt_1" name="submit1" onclick="dataprocess.show_query_table()" value="查询">
+        <input type="button" class="close_bt_1" name="clear1" onclick="dataprocess.clear_show_query_table()"
+               value="清除查询结果">
+
+    <div id="div_table_query"></div>
+    <br>
+</div>
+
+<div>
+    <b class="big_bond_font">
+        删除数据表：
+    </b>
+        数据库表名：<label for="text_delete"></label><input id="text_delete" type="text" name="table_name">
+        <input type="button" class="delete_bt_1" name="submit2" onclick="dataprocess.delete_table()" value="删除">
+
+    <div id="div_table_delete"></div>
+    <br>
+</div>
+
+<div>
+    <b class="big_bond_font">
+        中国近20年人口数据的折线图——数额：
+    </b>
+    <input type="button" class="open_bt_1" name='open5' value="显示中国人口数据折线图——数额"
+           onclick="dataprocess.show_e_chart02()">
+    <input type="button" class="close_bt_1" name='close5' value="关闭显示中国人口数据折线图——数额"
+           onclick="dataprocess.clear_show_e_chart02()">
+    <div id="echart_container02"></div>
+    <br>
+</div>
+
+<div>
+    <b class="big_bond_font">
+        中国近20年人口数据的折线图——比率：
+    </b>
+    <input type="button" class="open_bt_1" name='open6' value="显示中国人口数据折线图——比率"
+           onclick="dataprocess.show_e_chart03()">
+    <input type="button" class="close_bt_1" name='close6' value="关闭显示中国人口数据折线图——比率"
+           onclick="dataprocess.clear_show_e_chart03()">
+    <div id="echart_container03"></div>
+    <br>
+</div>
+
+
+</body>
+</html>

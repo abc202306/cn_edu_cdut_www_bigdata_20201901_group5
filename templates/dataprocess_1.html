@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据处理</title>
+    <script src="{% static 'themes/js/echarts.js' %}"></script>
+    <script src="{% static 'themes/js/jquery.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'themes/css/dataprocess.css' %}">
+    <!--suppress HtmlDeprecatedAttribute -->
+    <style type="text/css">
+        table.altrowstable {
+            font-family: verdana, arial, sans-serif;
+            font-size: 11px;
+            color: darkblue;
+            border-width: 1px;
+            border-color: #a9c6c9;
+            border-collapse: collapse;
+        }
+
+        table.altrowstable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #a9c6c9;
+        }
+
+        table.altrowstable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #a9c6c9;
+        }
+
+        .oddrowcolor {
+            background-color: skyblue;
+        }
+
+        .evenrowcolor {
+            background-color: lightskyblue;
+        }
+    </style>
+    <script type="text/javascript">
+        function altRows(id) {
+            if (document.getElementsByTagName) {
+                const table = document.getElementById(id);
+                const rows = table.getElementsByTagName("tr");
+
+                for (let i = 0; i < rows.length; i++) {
+                   if (i % 2 === 0) {
+                        rows[i].className = "evenrowcolor";
+                    } else {
+                        rows[i].className = "oddrowcolor";
+                    }
+                }
+            }
+        }
+
+        function render_table(id) {
+            try {
+                altRows(id);
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        window.onload = function () {
+            render_table('alternatecolor1');
+            render_table('alternatecolor2');
+            render_table('alternatecolor3');
+            render_table('alternatecolor4');
+            render_table('alternatecolor5');
+        }
+    </script>
+
+    <script type="text/javascript">
+        function get_show_result_as_e_chart(myChart) {
+            function show_result_as_e_chart(result) {
+                myChart.hideLoading();
+                let series = [];
+
+                $.each(result.data, function (key, val) {
+                    let item = {
+                        name: key,
+                        type: 'line',
+                        data: val,
+                        smooth: true
+                    };
+                    series.push(item);
+                });
+                myChart.hideLoading();
+                // 填入数据
+                myChart.setOption({
+                    legend: {
+                        data: result.labels
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: result.years
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: series
+                })
+            }
+            return show_result_as_e_chart;
+        }
+
+
+        function show_e_chart(id, url) {
+            // 基于准备好的dom，初始化echarts实例
+            let myChart = echarts.init(document.getElementById(id));
+            // 指定图表的配置项和数据
+            myChart.option = {
+                xAxis: {
+                    type: 'category',
+                    data: []
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        data: [],
+                        type: 'line'
+                    }
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.showLoading();
+
+            $.ajax({
+                url: url,
+                result: {},
+                type: 'GET',
+                dataType: 'json',
+                success: get_show_result_as_e_chart(myChart),
+                error: function (msg) {
+                    console.log(msg);
+                    alert('系统发生错误');
+                }
+            })
+        }
+
+
+    </script>
+
+
+
+
+</head>
+<body>
+
+
+<h1>
+    所有数据库
+</h1>
+<div>
+    <form action="dataprocess_1" method="post">
+        {% csrf_token %}
+        <input type="submit" name='open1' value="显示所有数据库">
+        <input type="submit" name='close1' value="关闭显示所有数据库">
+    </form>
+    {{ table_html.a | safe }}
+
+</div>
+
+<h1>
+    当前数据库
+</h1>
+<div>
+    <form action="dataprocess_1" method="post">
+        {% csrf_token %}
+        <input type="submit" name='open2' value="显示当前数据库">
+        <input type="submit" name='close2' value="关闭显示当前数据库">
+    </form>
+    {{ table_html.b | safe }}
+</div>
+
+<h1>
+    当前数据库的所有数据表
+</h1>
+<div>
+    <form action="dataprocess_1" method="post">
+        {% csrf_token %}
+        <input type="submit" name='open3' value="显示当前数据库的所有数据表">
+        <input type="submit" name='close3' value="关闭显示当前所有数据库的所有数据表">
+    </form>
+    {{ table_html.c | safe }}
+</div>
+
+
+<h1>
+    中国近20年人口数据
+</h1>
+<p>
+    （以内存、mysql数据库数据表population、网站<a href="http:\\data.stats.gov.cn\easyquery.htm?cn=C01">http:\\data.stats.gov.cn\easyquery.htm?cn=C01</a>为顺序，依次尝试访问数据，直至成功获取数据）
+</p>
+<div>
+    <form action="dataprocess_1" method="post">
+        {% csrf_token %}
+        <input type="submit" name='open4' value="显示中国人口数据">
+        <input type="submit" name='close4' value="关闭显示中国人口数据">
+    </form>
+    {{ table_html.d | safe }}
+</div>
+
+<h1>
+    在当前数据库按表名查询表的所有数据
+</h1>
+<div>
+    <form action="dataprocess_1" method="post">
+        {% csrf_token %}
+        数据库表名：<label for="tq"></label><input id="tq" type="text" name="table_name">
+        <input type="submit" name="submit1" value="查询">
+        <input type="submit" name="clear1" value="清除查询结果">
+    </form>
+    {{ table_html.e | safe }}
+</div>
+
+
+
+
+<h1>
+    中国近20年人口数据的折线图——数额
+</h1>
+<div>
+    <form action="dataprocess_1" method="post">
+        {% csrf_token %}
+        <input type="submit" name='open5' value="显示中国人口数据折线图——数额">
+        <input type="submit" name='close5' value="关闭显示中国人口数据折线图——数额">
+    </form>
+    {{ graph_html.a | safe }}
+</div>
+
+
+
+
+
+<h1>
+    中国近20年人口数据的折线图——比率
+</h1>
+<div>
+    <form action="dataprocess_1" method="post">
+        {% csrf_token %}
+        <input type="submit" name='open6' value="显示中国人口数据折线图——数额">
+        <input type="submit" name='close6' value="关闭显示中国人口数据折线图——数额">
+    </form>
+    {{ graph_html.b | safe}}
+</div>
+</body>
+</html>
