@@ -231,4 +231,14 @@ class dataprocess {
     static clear_show_e_chart05() {
         document.getElementById('echart_container05').innerHTML = '';
     }
+
+    static press_some_buttons() {
+        dataprocess.show_all_database();
+        dataprocess.show_current_database();
+        dataprocess.show_all_datatable();
+        dataprocess.show_population();
+        dataprocess.show_e_chart02();
+        dataprocess.show_e_chart04();
+        dataprocess.show_e_chart05();
+    }
 }
