@@ -97,6 +97,13 @@
 </div>
 
 <div>
+    <b class="big_bond_font">中国近20年人口数据的数据描述性分析：</b>
+    <button type="button" class="open_bt_1" onclick="dataprocess.show_population_describe()">显示中国近20年人口数据的数据描述性分析</button>
+    <button type="button" class="close_bt_1" onclick="dataprocess.clear_show_population_describe()">清除显示中国近20年人口数据的数据描述性分析</button>
+    <div id="div_table_5"></div>
+    <br>
+</div>
+<div>
     <b class="big_bond_font">在当前数据库查询表的所有数据：</b>
     <b class="common_text">数据库表名：</b><label for="tq"></label><input id="tq" type="text" name="table_name">
     <input type="button" class="open_bt_1" name="submit1" onclick="dataprocess.show_query_table()" value="查询">

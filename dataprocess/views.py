@@ -98,60 +98,20 @@ class DataProcess:
         return json_
 
     @staticmethod
-    def json01():
-        dataframe = NationalData.get_recent_20_years_data_of_population()
-        json01_ = DataProcess.to_json(dataframe)
-        if settings.DEBUG:
-            print(json01_)
-        return json01_
-
-    @staticmethod
-    def json02():
-        dataframe = NationalData.get_recent_20_years_data_of_population_amount()
-        json02_ = DataProcess.to_json(dataframe)
-        if settings.DEBUG:
-            print(json02_)
-        return json02_
-
-    @staticmethod
-    def json03():
-        dataframe = NationalData.get_recent_20_years_data_of_population_rate()
-        json03_ = DataProcess.to_json(dataframe)
-        if settings.DEBUG:
-            print(json03_)
-        return json03_
-
-    @staticmethod
-    def json04():
-        dataframe = NationalData.get_recent_20_years_data_of_population_rate_1()
-        json04_ = DataProcess.to_json(dataframe)
-        if settings.DEBUG:
-            print(json04_)
-        return json04_
-
-    @staticmethod
-    def json05():
-        dataframe = NationalData.get_recent_20_years_data_of_population_rate_2()
-        json05_ = DataProcess.to_json(dataframe)
-        if settings.DEBUG:
-            print(json05_)
-        return json05_
-
-    @staticmethod
     def json(request):
         json_ = ''
         if request.GET:
             if 'q' in request.GET:
                 k = request.GET['q']
                 if k in ['1', '2', '3', '4', '5']:
-                    config = {
-                        '1': DataProcess.json01,
-                        '2': DataProcess.json02,
-                        '3': DataProcess.json03,
-                        '4': DataProcess.json04,
-                        '5': DataProcess.json05,
+                    data = {
+                        '1': NationalData.get_recent_20_years_data_of_population,
+                        '2': NationalData.get_recent_20_years_data_of_population_amount,
+                        '3': NationalData.get_recent_20_years_data_of_population_rate,
+                        '4': NationalData.get_recent_20_years_data_of_population_rate_1,
+                        '5': NationalData.get_recent_20_years_data_of_population_rate_2,
                     }
-                    json_ = config[k]()
+                    json_ = DataProcess.to_json(data[k]())
 
         return HttpResponse(json_)
 
@@ -162,7 +122,8 @@ class DataProcess:
             DatabasesData.dataframe,
             CurrentDatabase.dataframe,
             TablesData.dataframe,
-            NationalData.get_recent_20_years_data_of_population
+            NationalData.get_recent_20_years_data_of_population,
+            NationalData.describe
         ]
 
         if request.GET:
@@ -171,7 +132,7 @@ class DataProcess:
                 if setting == 'open':
                     if 'q' in request.GET:
                         c = request.GET['q']
-                        if c in ['1', '2', '3', '4']:
+                        if c in ['1', '2', '3', '4', '5']:
                             i = int(c) - 1
                             html_ = dfs[i]().to_html(
                                 classes="altrowstable",

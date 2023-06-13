@@ -179,6 +179,15 @@ class dataprocess {
         xml_http.send();
     }
 
+    static show_population_describe() {
+        dataprocess.set_html('div_table_5', 'html?setting=open&q=5', 'alternatecolor5')
+    }
+
+    static clear_show_population_describe() {
+        dataprocess.set_html('div_table_5', 'html?setting=close&q=5', 'alternatecolor5');
+    }
+
+
     static show_query_table() {
         const table_name = document.getElementById('tq').value;
         const url = 'html?submit1=1&table_name=' + table_name;
@@ -236,6 +245,7 @@ class dataprocess {
         dataprocess.show_current_database();
         dataprocess.show_all_datatable();
         dataprocess.show_population();
+        dataprocess.show_population_describe()
         dataprocess.show_e_chart02();
         dataprocess.show_e_chart04();
         dataprocess.show_e_chart05();

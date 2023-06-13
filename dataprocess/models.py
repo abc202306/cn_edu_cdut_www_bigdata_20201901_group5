@@ -104,7 +104,7 @@ class NationalData:
         data02 = NationalData.dataframe(browser)
         time.sleep(time_sep)
 
-        data10 = pandas.concat([data00, data02[:4]])
+        data10 = pandas.concat([data00, data02[1:4]])
         data11 = data01
         data12 = data02[4:]
 
@@ -115,15 +115,38 @@ class NationalData:
 
         data20 = pandas.concat([data10, data11, data12]).reset_index(drop=True)
 
-        return data20, data10, data11, data12
+        return data20
 
     @staticmethod
     def dataframe_from_browser():
         with NationalData.browser() as browser:
             browser.get(NationalData.easy_query_annual_data_url)
             time.sleep(NationalData.time_sep)
-            data = NationalData.the_dataframe(browser)[0]
+            data = NationalData.the_dataframe(browser)
         return data
+
+    @staticmethod
+    def describe():
+        data = NationalData.get_recent_20_years_data_of_population()
+        columns = data[data.columns[0]]
+        data2 = data[data.columns[1:]].T
+        data2.columns = columns
+        data2 = pandas.concat(
+            [
+
+                data2[data2.columns[:-6]].astype('int'),
+                data2[data2.columns[-6:]].astype('float')
+            ],
+            axis=1
+        )
+        describe_ = data2.describe().T
+        describe_.index.name = None
+        describe_.columns = [
+            '计数', '平均值', '标准差', '最小值',
+            '25%分位数', '50%分位数', '75%分位数', '最大值'
+        ]
+
+        return describe_
 
     @staticmethod
     def get_recent_20_years_data_of_population():
@@ -142,13 +165,6 @@ class NationalData:
                 data = NationalData.dataframe_from_browser()
                 NationalData.data = data
                 NationalData.save(data)
-            data = pandas.concat(
-                [
-                    data[data.columns[0]].to_frame(),
-                    data[data.columns[1:]].astype('float'),
-                ],
-                axis=1
-            )
 
             return data
 
