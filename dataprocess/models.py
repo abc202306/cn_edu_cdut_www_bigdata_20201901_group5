@@ -7,7 +7,7 @@ from django.conf import settings
 import time
 import pandas
 from selenium.webdriver.common.by import By
-
+import threading
 
 class DatabasesData:
     @staticmethod
@@ -42,6 +42,7 @@ class NationalData:
     )
     engine = sqlalchemy.create_engine(sql_url)
     sql_storage_table_population_name = 'population'
+    lock = threading.Lock()
 
     @staticmethod
     def browser():
@@ -126,20 +127,29 @@ class NationalData:
 
     @staticmethod
     def get_recent_20_years_data_of_population():
-        loaded = NationalData.data is not None
-        with NationalData.engine.connect() as con:
-            saved = NationalData.engine.dialect.has_table(con, NationalData.sql_storage_table_population_name)
-        if loaded:
-            if not saved:
-                NationalData.save(NationalData.data)
-            return NationalData.data
-        elif saved:
-            NationalData.data = NationalData.load()
-            return NationalData.data
-        else:
-            data = NationalData.dataframe_from_browser()
-            NationalData.data = data
-            NationalData.save(data)
+        with NationalData.lock:
+            loaded = NationalData.data is not None
+            with NationalData.engine.connect() as con:
+                saved = NationalData.engine.dialect.has_table(con, NationalData.sql_storage_table_population_name)
+            if loaded:
+                data = NationalData.data
+                if not saved:
+                    NationalData.save(data)
+            elif saved:
+                data = NationalData.load()
+                NationalData.data = data
+            else:
+                data = NationalData.dataframe_from_browser()
+                NationalData.data = data
+                NationalData.save(data)
+            data = pandas.concat(
+                [
+                    data[data.columns[0]].to_frame(),
+                    data[data.columns[1:]].astype('float'),
+                ],
+                axis=1
+            )
+
             return data
 
     @staticmethod
