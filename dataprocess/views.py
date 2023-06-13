@@ -28,6 +28,7 @@ class DataProcess:
     @staticmethod
     def deal_1(request):
         show = DataProcess.show
+
         post = request.POST
         dfs = [
             DatabasesData.dataframe,
