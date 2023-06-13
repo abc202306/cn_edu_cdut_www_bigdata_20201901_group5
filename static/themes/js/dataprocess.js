@@ -96,7 +96,6 @@ class dataprocess {
         })
     }
 
-
     static set_html(id, url, table_id) {
         let xml_http;
         if (window.XMLHttpRequest) {
