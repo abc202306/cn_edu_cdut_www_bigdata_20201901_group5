@@ -163,7 +163,7 @@ class DataProcess:
             if 'submit1' in request.GET:
                 table_name = request.GET['table_name']
                 html_ = NationalData.load_by_name(table_name).to_html(
-                    classes="altrowstable", table_id="alternatecolor5"
+                    classes="altrowstable", table_id="alternatecolorq"
                 )
 
             if 'clear1' in request.GET:

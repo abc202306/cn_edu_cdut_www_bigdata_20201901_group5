@@ -3,13 +3,14 @@ class dataprocess {
     static altRows(id) {
         if (document.getElementsByTagName) {
             const table = document.getElementById(id);
-            const rows = table.getElementsByTagName("tr");
-
-            for (let i = 0; i < rows.length; i++) {
-                if (i % 2 === 0) {
-                    rows[i].className = "evenrowcolor";
-                } else {
-                    rows[i].className = "oddrowcolor";
+            if (!(table === null)) {
+                const rows = table.getElementsByTagName("tr");
+                for (let i = 0; i < rows.length; i++) {
+                    if (i % 2 === 0) {
+                        rows[i].className = "evenrowcolor";
+                    } else {
+                        rows[i].className = "oddrowcolor";
+                    }
                 }
             }
         }
@@ -108,11 +109,8 @@ class dataprocess {
         xml_http.onreadystatechange = function () {
             if (xml_http.readyState === 4 && xml_http.status === 200) {
                 document.getElementById(id).innerHTML = xml_http.responseText;
-                try {
-                    dataprocess.render_table(table_id);
-                } catch (e) {
-                    console.error(e)
-                }
+
+                dataprocess.render_table(table_id);
             }
         }
         xml_http.open('GET', url, true);
@@ -191,11 +189,11 @@ class dataprocess {
     static show_query_table() {
         const table_name = document.getElementById('tq').value;
         const url = 'html?submit1=1&table_name=' + table_name;
-        dataprocess.set_html('div_table_query', url, 'alternatecolor5')
+        dataprocess.set_html('div_table_query', url, 'alternatecolorq')
     }
 
     static clear_show_query_table() {
-        dataprocess.set_html('div_table_query', 'html?clear1=1', 'alternatecolor5');
+        dataprocess.set_html('div_table_query', 'html?clear1=1', 'alternatecolorq');
     }
 
     static delete_table() {
@@ -240,7 +238,7 @@ class dataprocess {
         document.getElementById('echart_container05').innerHTML = '';
     }
 
-    static press_some_buttons() {
+    static press_some_open_buttons() {
         dataprocess.show_all_database();
         dataprocess.show_current_database();
         dataprocess.show_all_datatable();
@@ -249,5 +247,17 @@ class dataprocess {
         dataprocess.show_e_chart02();
         dataprocess.show_e_chart04();
         dataprocess.show_e_chart05();
+    }
+
+    static press_some_close_buttons() {
+        dataprocess.clear_show_all_database();
+        dataprocess.clear_show_current_database();
+        dataprocess.clear_show_all_datatable();
+        dataprocess.clear_show_query_table();
+        dataprocess.clear_show_population();
+        dataprocess.clear_show_population_describe();
+        dataprocess.clear_show_e_chart02();
+        dataprocess.clear_show_e_chart04();
+        dataprocess.clear_show_e_chart05();
     }
 }

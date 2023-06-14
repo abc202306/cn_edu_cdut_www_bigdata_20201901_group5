@@ -30,7 +30,7 @@ class TablesData:
 
 class NationalData:
     main_page_url = 'http:\\data.stats.gov.cn'
-    easy_query_annual_data_url = f'{main_page_url}\\easyquery.htm?cn=C01'
+    easy_query_annual_data_url = 'http:\\data.stats.gov.cn\\easyquery.htm?cn=C01'
     time_sep = 0.3
     data = None
     sql_url = sqlalchemy.engine.URL.create(
