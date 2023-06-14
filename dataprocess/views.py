@@ -1,7 +1,6 @@
 import json
 
 import pandas
-from django.conf import settings
 from django.shortcuts import render, HttpResponse
 
 from dataprocess.models import (

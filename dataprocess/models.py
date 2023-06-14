@@ -1,13 +1,14 @@
 # Create your models here.
 
+import threading
+import time
+
+import pandas
 import selenium.webdriver
 import sqlalchemy
 from django.conf import settings
-
-import time
-import pandas
 from selenium.webdriver.common.by import By
-import threading
+
 
 class DatabasesData:
     @staticmethod
@@ -70,14 +71,14 @@ class NationalData:
     def dataframe(browser):
         table = browser.find_element(By.CLASS_NAME, 'table_fix')
         thead = table.find_element(By.TAG_NAME, 'thead')
-        thead_text_ls = [strong.get_attribute('innerText') for strong in thead.find_elements(By.TAG_NAME, 'strong')]
+        column_names = [strong.get_attribute('innerText') for strong in thead.find_elements(By.TAG_NAME, 'strong')]
         tbody = table.find_element(By.TAG_NAME, 'tbody')
         tbody_rows = tbody.find_elements(By.TAG_NAME, 'tr')
         tbody_data = [
             [item.get_attribute('innerText') for item in row.find_elements(By.TAG_NAME, 'td')]
             for row in tbody_rows
         ]
-        dataframe = pandas.DataFrame(tbody_data, columns=thead_text_ls)
+        dataframe = pandas.DataFrame(tbody_data, columns=column_names)
         return dataframe
 
     @staticmethod
