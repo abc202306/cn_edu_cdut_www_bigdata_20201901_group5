@@ -85,6 +85,7 @@ class NationalData:
     def the_dataframe(browser):
         time_sep = NationalData.time_sep
 
+        time.sleep(time_sep)
         NationalData.click_the_recent_20_year_button(browser)
 
         browser.find_element(By.ID, 'treeZhiBiao_4_a').click()
@@ -110,11 +111,9 @@ class NationalData:
         data12 = data02[4:]
 
         new_columns = [data10.columns[0], *data10.columns[-1:0:-1]]
-        data10 = data10[new_columns]
-        data11 = data11[new_columns]
-        data12 = data12[new_columns]
 
         data20 = pandas.concat([data10, data11, data12]).reset_index(drop=True)
+        data20 = data20[new_columns]
 
         return data20
 
@@ -122,7 +121,6 @@ class NationalData:
     def dataframe_from_browser():
         with NationalData.browser() as browser:
             browser.get(NationalData.easy_query_annual_data_url)
-            time.sleep(NationalData.time_sep)
             data = NationalData.the_dataframe(browser)
         return data
 

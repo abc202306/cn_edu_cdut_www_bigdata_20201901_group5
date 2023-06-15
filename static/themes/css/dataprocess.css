@@ -14,15 +14,12 @@ a.link01 {
 
 .open_bt_1 {
   background: lightskyblue;
-  background-image: -webkit-linear-gradient(top, lightskyblue, skyblue);
-  background-image: -moz-linear-gradient(top, lightskyblue, skyblue);
-  background-image: -ms-linear-gradient(top, lightskyblue, skyblue);
-  background-image: -o-linear-gradient(top, lightskyblue, skyblue);
-  background-image: linear-gradient(to bottom, lightskyblue, skyblue);
-  -webkit-border-radius: 60;
-  -moz-border-radius: 60;
+  background-image: -webkit-linear-gradient(top, lightskyblue, blue);
+  background-image: -moz-linear-gradient(top, lightskyblue, blue);
+  background-image: -ms-linear-gradient(top, lightskyblue, blue);
+  background-image: -o-linear-gradient(top, lightskyblue, blue);
+  background-image: linear-gradient(to bottom, lightskyblue, blue);
   border-radius: 60px;
-  font-family: Arial;
   color: white;
   font-size: 20px;
   padding: 8px 20px 10px 20px;
@@ -47,10 +44,7 @@ a.link01 {
   background-image: -ms-linear-gradient(top, blue, darkblue);
   background-image: -o-linear-gradient(top, blue, darkblue);
   background-image: linear-gradient(to bottom, blue, darkblue);
-  -webkit-border-radius: 60;
-  -moz-border-radius: 60;
   border-radius: 60px;
-  font-family: Arial;
   color: white;
   font-size: 20px;
   padding: 8px 20px 10px 20px;
@@ -66,10 +60,7 @@ a.link01 {
   background-image: -ms-linear-gradient(top, red, darkred);
   background-image: -o-linear-gradient(top, red, darkred);
   background-image: linear-gradient(to bottom, red, darkred);
-  -webkit-border-radius: 60;
-  -moz-border-radius: 60;
   border-radius: 60px;
-  font-family: Arial;
   color: white;
   font-size: 20px;
   padding: 8px 20px 10px 20px;

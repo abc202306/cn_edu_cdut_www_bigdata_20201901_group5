@@ -54,7 +54,7 @@ class DataProcess:
                 DataProcess.query_result_html = DataProcess.query_result.to_html(
                     classes="altrowstable", table_id="alternatecolor5"
                 )
-        if 'clear1' in post:
+        elif 'clear1' in post:
             DataProcess.current_table_name = None
             DataProcess.query_result = None
             DataProcess.query_result_html = None
@@ -137,43 +137,46 @@ class DataProcess:
                                 classes="altrowstable",
                                 table_id=f"alternatecolor{c}"
                             )
-                if setting == 'close':
+                elif setting == 'close':
                     html_ = ''
 
-            if 'open4_browser' in request.GET:
+            elif 'open4_browser' in request.GET:
                 html_ = NationalData.dataframe_from_browser().to_html(
                     classes="altrowstable",
                     table_id="alternatecolor4"
                 )
 
-            if 'open4_memory' in request.GET:
+            elif 'open4_memory' in request.GET:
                 if NationalData.data is None:
-                    html_ = pandas.DataFrame()
+                    html_ = pandas.DataFrame().to_html(
+                        classes="altrowstable",
+                        table_id="alternatecolor4"
+                    )
                 else:
                     html_ = NationalData.data.to_html(
                         classes="altrowstable",
                         table_id="alternatecolor4"
                     )
-            if 'open4_database' in request.GET:
+            elif 'open4_database' in request.GET:
                 html_ = NationalData.load().to_html(
                     classes="altrowstable",
                     table_id="alternatecolor4"
                 )
 
-            if 'submit1' in request.GET:
+            elif 'submit1' in request.GET:
                 table_name = request.GET['table_name']
                 html_ = NationalData.load_by_name(table_name).to_html(
                     classes="altrowstable", table_id="alternatecolorq"
                 )
 
-            if 'clear1' in request.GET:
+            elif 'clear1' in request.GET:
                 html_ = ''
 
-            if 'submit2' in request.GET:
+            elif 'submit2' in request.GET:
                 table_name = request.GET['table_name']
                 NationalData.drop_datatable(table_name)
 
-            if 'clear_memory_of_population' in request.GET:
+            elif 'clear_memory_of_population' in request.GET:
                 NationalData.data = None
 
         return HttpResponse(html_)

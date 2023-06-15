@@ -239,25 +239,44 @@ class dataprocess {
     }
 
     static press_some_open_buttons() {
-        dataprocess.show_all_database();
-        dataprocess.show_current_database();
-        dataprocess.show_all_datatable();
-        dataprocess.show_population();
-        dataprocess.show_population_describe()
-        dataprocess.show_e_chart02();
-        dataprocess.show_e_chart04();
-        dataprocess.show_e_chart05();
+        // dataprocess.show_all_database();
+        // dataprocess.show_current_database();
+        // dataprocess.show_all_datatable();
+        // dataprocess.show_population();
+        // dataprocess.show_population_describe()
+        // dataprocess.show_e_chart02();
+        // dataprocess.show_e_chart04();
+        // dataprocess.show_e_chart05();
+        $('#bto1').click();
+        $('#bto2').click();
+        $('#bto3').click();
+        $('#bto4').click();
+        $('#bto5').click();
+        $('#bto6').click();
+        $('#bto7').click();
+        $('#bto8').click();
+
     }
 
     static press_some_close_buttons() {
-        dataprocess.clear_show_all_database();
-        dataprocess.clear_show_current_database();
-        dataprocess.clear_show_all_datatable();
-        dataprocess.clear_show_query_table();
-        dataprocess.clear_show_population();
-        dataprocess.clear_show_population_describe();
-        dataprocess.clear_show_e_chart02();
-        dataprocess.clear_show_e_chart04();
-        dataprocess.clear_show_e_chart05();
+        // dataprocess.clear_show_all_database();
+        // dataprocess.clear_show_current_database();
+        // dataprocess.clear_show_all_datatable();
+        // dataprocess.clear_show_query_table();
+        // dataprocess.clear_show_population();
+        // dataprocess.clear_show_population_describe();
+        // dataprocess.clear_show_e_chart02();
+        // dataprocess.clear_show_e_chart04();
+        // dataprocess.clear_show_e_chart05();
+        $('#btc1').click();
+        $('#btc2').click();
+        $('#btc3').click();
+        $('#btc4').click();
+        $('#btc5').click();
+        $('#btc5_2').click();
+        $('#btc6').click();
+        $('#btc7').click();
+        $('#btc8').click();
+
     }
 }
