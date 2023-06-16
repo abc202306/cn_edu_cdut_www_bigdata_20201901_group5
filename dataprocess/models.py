@@ -52,7 +52,7 @@ class NationalData:
         # 关闭关于http的警告
         options.add_argument('--ignore-certificate-errors')
         # 关闭浏览器显示
-        # options.add_argument('--headless')  # TODO
+        # options.add_argument('--headless')  # TODO() [关闭浏览器显示]
         # 注意要下载好驱动chromedriver.exe
         browser = selenium.webdriver.Chrome(
             r'C:\Users\Dell\Downloads\chromedriver_win32\chromedriver.exe',
