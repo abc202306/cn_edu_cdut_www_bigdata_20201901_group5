@@ -118,7 +118,7 @@ class NationalData:
         return data20
 
     @staticmethod
-    def dataframe_from_browser():
+    def the_dataframe_from_browser():
         with NationalData.browser() as browser:
             browser.get(NationalData.easy_query_annual_data_url)
             data = NationalData.the_dataframe(browser)
@@ -161,7 +161,7 @@ class NationalData:
                 data = NationalData.load()
                 NationalData.data = data
             else:
-                data = NationalData.dataframe_from_browser()
+                data = NationalData.the_dataframe_from_browser()
                 NationalData.data = data
                 NationalData.save(data)
 

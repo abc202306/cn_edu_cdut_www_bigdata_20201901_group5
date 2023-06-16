@@ -141,7 +141,7 @@ class DataProcess:
                     html_ = ''
 
             elif 'open4_browser' in request.GET:
-                html_ = NationalData.dataframe_from_browser().to_html(
+                html_ = NationalData.the_dataframe_from_browser().to_html(
                     classes="altrowstable",
                     table_id="alternatecolor4"
                 )
